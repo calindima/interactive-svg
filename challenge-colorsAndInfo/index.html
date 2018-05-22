@@ -17,22 +17,25 @@
     <div id="map"></div>
 
     <script>
+        
         document.addEventListener('DOMContentLoaded', () => {
             loadSvg();
             loadJson();
         });
+        
         async function loadSvg() {
             const svgData = await fetch('map.svg');
             const mySvg = await svgData.text();
 
             document.querySelector('#map').innerHTML = mySvg;
         }
+
         async function loadJson() {
             const jsonData = await fetch('data.json');
             const myJson = await jsonData.json();
             myJson.forEach(data => showInfo(data));
         }
-        // * show text on mouseover
+
         function showInfo(data) {
             document.addEventListener('mouseover', event => {
                 
@@ -41,10 +44,6 @@
                     document.querySelector('#info p:first-child').textContent = data.city.substr(0,1).toUpperCase() + data.city.substring(1, data.city.length).toLowerCase();
                     document.querySelector('#info p:last-child').textContent = data['tax-base'];
                 }
-            //     const itemId = event.target.id;
-            //     if (itemId === data.id) {
-            //         document.querySelector('#info').textContent = data.city;
-            //     }
              });
         }
         document.addEventListener('mouseover', event => {
