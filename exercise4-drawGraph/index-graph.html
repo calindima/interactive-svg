@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Draw graph</title>
+    <style>
+        #graph {
+            width: 50%;
+            margin: 0 auto;
+            border: 1px solid #666;
+        }
+
+        polyline {
+            stroke: #000;
+            stroke-width: 5px;
+            fill: none;
+            stroke-dasharray: 250;
+            stroke-dashoffset: 250;
+            transition: all 2s;
+        }
+    </style>
+
+</head>
+
+<body>
+    <div id="graph">
+        <svg viewBox="0 0 200 100" xmlns="http://www.w3.org/2000/svg">
+
+            <!-- Example of the same polyline shape with stroke and no fill -->
+            <polyline points="" />
+        </svg>
+    </div>
+
+    <script>
+        const polyline = document.querySelector('polyline');
+        const graph = document.querySelector('#graph');
+        const pointsArr = ["0,100", "25,75", "50,70", "70,70", "130,25", "200,10"];
+        let pointsFinal = "";
+        pointsArr.forEach(points => {
+            console.log(points);
+            pointsFinal = pointsFinal.concat(points + " ");
+        });
+        polyline.setAttribute('points', pointsFinal);
+
+        graph.addEventListener('mouseover', () => {
+            polyline.style.strokeDashoffset = 0;
+        });
+        graph.addEventListener('mouseout', ()=>{
+            polyline.style.strokeDashoffset = 250;
+        });
+
+    </script>
+</body>
+
+</html>

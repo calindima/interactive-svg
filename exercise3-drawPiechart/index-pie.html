@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>draw-pie</title>
+    <style>
+        #circle {
+            width: 50%;
+            margin: 0 auto;
+        }
+
+        svg {
+            background: #797979;
+            border-radius: 50%;
+        }
+
+        circle {
+            fill: none;
+            stroke-width: 100;
+            stroke-dasharray: 20 314;
+            transition: all 2s;
+        }
+
+        #c1 {
+            stroke: #f00;
+            stroke-dashoffset: 0;
+            stroke-dasharray: 5 314;
+        }
+
+        #c2 {
+            stroke: #ca1;
+            stroke-dashoffset: -20;
+            stroke-dasharray: 0 314;
+        }
+
+        #c3 {
+            stroke: #c0ffee;
+            stroke-dashoffset: -50;
+            stroke-dasharray: 0 314;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="circle">
+        <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+            <circle id="c1" cx="50" cy="50" r="50" />
+            <circle id="c2" cx="50" cy="50" r="50" />
+            <circle id="c3" cx="50" cy="50" r="50" />
+        </svg>
+    </div>
+    <p></p>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', getData);
+        async function getData() {
+            const jsonData = await fetch('data.json');
+            const myJson = await jsonData.json();
+            myJson.forEach(data => {
+                const elm = document.querySelector('#' + data.id);
+                elm.style.strokeDasharray = data.dasharray;
+                elm.addEventListener('mouseover', () => {
+                    document.querySelector('p').textContent = data.dasharray.substr(0, 2) + "%";
+                });
+            });
+        }
+    </script>
+</body>
+
+</html>
